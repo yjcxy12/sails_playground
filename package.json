@@ -35,6 +35,6 @@
   "author": "anonymous node/sails user",
   "license": "",
   "devDependencies": {
-    "flightplan": "^0.6.0"
+    "flightplan": "~0.6.0"
   }
 }
