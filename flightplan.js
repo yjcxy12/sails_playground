@@ -24,12 +24,12 @@ plan.target('production', [
 plan.local(function(local) {
   // uncomment these if you need to run a build on your machine first
   // local.log('Run build');
-  local.exec('grunt build');
+  // local.exec('grunt build --false');
 
   local.log('Copy files to remote hosts');
   var filesToCopy = local.exec('git ls-files', {silent: true});
   // rsync files to all the destination's hosts
-  local.transfer(filesToCopy, './tmp/' + tmpDir);
+  blocal.transfer(filesToCopy, '/tmp/' + tmpDir);
 });
 
 // run commands on remote hosts (destinations)
