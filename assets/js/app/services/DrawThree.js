@@ -74,7 +74,7 @@ angular.module('app')
 					);
 				
 				holder_bot.applyMatrix(mesh.matrix);
-				holder_bot.translateY(-50);
+				holder_bot.translateY(-72.5);
 
 				group.add(holder_body);
 				group.add(holder_bot);
