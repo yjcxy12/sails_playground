@@ -1,4 +1,5 @@
 angular.module('app')
-	.controller('AlbumCtrl', ['$scope', 'initAlbum', function ($scope, initAlbum) {
-		$scope.init = initAlbum;
+	.controller('AlbumCtrl', ['$scope', 'AlbumService', function ($scope, AlbumService) {
+		
+		AlbumService.init();
 	}]);
