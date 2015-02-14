@@ -1,0 +1,46 @@
+<div style="margin-top: 50px;" id="blog">
+    <div class="container">
+      <div role="tabpanel">
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#blog" ng-click="BlogPage.changeTab('home')" role="tab" data-toggle="tab">Home</a>
+        </li>
+        <li role="presentation">
+          <a href="#blog" ng-click="BlogPage.changeTab('create')" role="tab" data-toggle="tab">Create</a>
+        </li>
+      </ul>
+
+        <!-- Tab panes -->
+      <div class="tab-content" ng-switch on="BlogPage.tab">
+
+        <div ng-switch-default>
+          <div class="col-md-3" id="sidebar">
+            
+          </div>
+          <div class="col-md-9" id="main-display">
+            <div ng-repeat="blog in blogs">
+              <h3>{{blog.title}}</h3>
+              <div ng-bind-html="blog.body"></div>
+            </div>
+          </div>
+        </div>
+
+        <div ng-switch-when="create">
+          <form>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Title ..." ng-model="new_blog.title">
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" rows="30" placeholder="Body ..." ng-model="new_blog.body"></textarea>
+            </div>
+            <button type="submit" class="btn btn-default pull-right" ng-click="BlogPage.createBlog(new_blog)">Submit</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+   
+  </div>
+</div>

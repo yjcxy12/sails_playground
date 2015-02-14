@@ -1,4 +1,4 @@
-var myApp = angular.module('app', ['ngRoute']);
+var myApp = angular.module('app', ['ngRoute', 'ngSanitize']);
 
 myApp.config(['$routeProvider', function ($routeProvider) {
 	$routeProvider
@@ -7,13 +7,15 @@ myApp.config(['$routeProvider', function ($routeProvider) {
 			templateUrl: "templates/home.html",
 			controller: "FirstCtrl"
 		})
+		.when('/blog', 
+		{
+			templateUrl: "templates/blog.html",
+			controller: "BlogCtrl"
+		})
 		.when('/album', 
 		{
 			templateUrl: "templates/album.html",
 			controller: "AlbumCtrl"
-		})
-		.otherwise({
-			redirectTo: '/'
 		});
 }]);
 

@@ -29,4 +29,7 @@ module.exports.models = {
   ***************************************************************************/
   // migrate: 'alter'
 
+  connection: 'mongodb',
+  migrate: 'alter'
+
 };

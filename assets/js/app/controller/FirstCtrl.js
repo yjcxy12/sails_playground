@@ -1,4 +1,3 @@
 angular.module('app')
-	.controller('FirstCtrl', ['$scope', function ($scope) {
-		$scope.tmpVal = 'aa';
+	.controller('FirstCtrl', ['$scope', '$http', function ($scope) {
 	}]);
