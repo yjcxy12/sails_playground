@@ -21,6 +21,14 @@
           </div>
           <div class="col-md-9" id="main-display">
             <div ng-repeat="blog in blogs">
+              <div class="btn-group pull-right">
+                <button class="btn btn-default" ng-click="BlogPage.editBlog(blog.id)">
+                  Edit
+                </button>
+                <button class="btn btn-default" ng-click="BlogPage.deleteBlog(blog.id)">
+                  Delete
+                </button>
+              </div>
               <h3>{{blog.title}}</h3>
               <div ng-bind-html="blog.body"></div>
             </div>

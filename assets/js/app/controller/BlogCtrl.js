@@ -14,6 +14,26 @@ angular.module('app')
 				.error(function (data, status, headers, config) {
 					alert(data.summary);
 				});
+			},
+			editBlog: function (id) {
+				$http.post('/blog/update', {id: id, title: 'new', body: 'new body'})
+				.success(function (data, status, headers, config) {
+					$scope.BlogPage.tab = 'home';
+					getAllBlogs();
+				})
+				.error(function (data, status, headers, config) {
+					alert(data.summary);
+				});
+			},
+			deleteBlog: function (id) {
+				$http.post('/blog/delete', {id: id})
+				.success(function (data, status, headers, config) {
+					$scope.BlogPage.tab = 'home';
+					getAllBlogs();
+				})
+				.error(function (data, status, headers, config) {
+					alert(data.summary);
+				});	
 			}
 		};
 
