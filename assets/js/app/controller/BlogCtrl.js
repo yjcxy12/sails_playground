@@ -1,57 +1,56 @@
 angular.module('app')
-	.controller('BlogCtrl', ['$scope', '$http', '$sce', '$location', function ($scope, $http, $sce, $location) {
+	.controller('BlogCtrl', ['$scope', '$sce', '$location', 'BlogService', function ($scope, $sce, $location, BlogService) {
 		$scope.BlogPage = {
 			tab: 'home',
+			edit_tab_text: 'Create',
 			changeTab: function (tab) {
 				$scope.BlogPage.tab = tab;
+				if (tab === 'home') {
+					$scope.BlogPage.edit_tab_text = 'Create';
+					$scope.new_blog = {};
+				}
 			},
-			createBlog: function (new_blog) {
-				$http.post('/blog/createNew', new_blog)
-				.success(function (data, status, headers, config) {
-					$scope.BlogPage.tab = 'home';
-					getAllBlogs();
-				})
-				.error(function (data, status, headers, config) {
-					alert(data.summary);
+			editButton: function (id) {
+				$scope.BlogPage.changeTab('create');
+				$scope.BlogPage.edit_tab_text = 'Edit';
+				BlogService.getBlog(id).then(function (blog) {
+					$scope.new_blog = blog;
+					$scope.new_blog.id = id;
 				});
 			},
-			editBlog: function (id) {
-				$http.post('/blog/update', {id: id, title: 'new', body: 'new body'})
-				.success(function (data, status, headers, config) {
-					$scope.BlogPage.tab = 'home';
-					getAllBlogs();
-				})
-				.error(function (data, status, headers, config) {
-					alert(data.summary);
-				});
+			submitButton: function (blog) {
+				switch ($scope.BlogPage.edit_tab_text) {
+					case 'Create':
+						blog.id = null;
+						BlogService.createBlog(blog).then(function () {
+							getAllBlogs();
+						});
+						break;
+					case 'Edit':
+						BlogService.editBlog(blog).then(function () {
+							getAllBlogs();
+						});
+						break;
+				}
 			},
-			deleteBlog: function (id) {
-				$http.post('/blog/delete', {id: id})
-				.success(function (data, status, headers, config) {
-					$scope.BlogPage.tab = 'home';
+			deleteButton: function (id) {
+				BlogService.deleteBlog(id).then(function () {
 					getAllBlogs();
-				})
-				.error(function (data, status, headers, config) {
-					alert(data.summary);
-				});	
+				});
 			}
 		};
 
-
 		function getAllBlogs () {			
 			$scope.blogs = [];
-			$http.get('/blog/getAll')
-			.success(function (data, status, headers, config) {
-				_.map(data, function (val, i) {
+			$scope.BlogPage.changeTab('home');
+			BlogService.getAllBlogs().then(function (blogs) {
+				_.map(blogs, function (val, i) {
 					$scope.blogs.push( {
 						"id" : val.id,
 						"title" : val.title,
 						"body" : $sce.trustAsHtml(val.body)
 					});
 				});
-			})
-			.error(function (data, status, headers, config) {
-				
 			});
 		}
 

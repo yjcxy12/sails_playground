@@ -11,6 +11,11 @@ module.exports = {
 			return res.json(blogs);
 		});
 	},
+	get : function (req, res) {
+		Blog.find({where: {id: req.body.id}, limit: 1}).exec(function (err, blog) {
+			return err? res.status(400).send(err) : res.json(blog);
+		});
+	},
 	createNew : function (req, res) {
 		Blog.create(req.body).exec(function (err, blog) {
 			return err? res.status(400).send(err) : res.ok();
